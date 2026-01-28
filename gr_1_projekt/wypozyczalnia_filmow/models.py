@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import UniqueConstraint
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 MIESIACE = models.IntegerChoices(
     'Miesiace',
@@ -18,7 +19,7 @@ class Gatunek(models.Model):
     opis = models.TextField(blank=True)
     typowe_motywy = models.CharField(max_length=200, blank=True)
     czy_fabularny = models.BooleanField(default=True)
-    ranking_popularnosci = models.PositiveSmallIntegerField(default=0)
+    
 
     def __str__(self):
         return self.nazwa    
@@ -28,9 +29,6 @@ class Gatunek(models.Model):
         verbose_name = "Gatunek"
         verbose_name_plural = "Gatunki"
         
-
-
-
 
 class Rezyser(models.Model):
     imie = models.CharField(max_length=50)
@@ -57,6 +55,11 @@ class Film(models.Model):
     rezyser = models.ForeignKey(Rezyser, null=True, blank=True, on_delete=models.SET_NULL)
     gatunek = models.ForeignKey(Gatunek, null=True, blank=True, on_delete=models.SET_NULL)
     dostepne_kopie = models.PositiveIntegerField(default=1)
+    ranking_popularności = models.PositiveSmallIntegerField(
+        default=0,
+        validators=[MinValueValidator(0), MaxValueValidator(10)],
+        help_text="Ocena popularności (0–10)."
+    )
    
     
     def __str__(self):

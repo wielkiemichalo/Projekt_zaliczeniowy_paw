@@ -9,10 +9,11 @@ class RezyserAdmin(admin.ModelAdmin):
     list_display = ["imie", "nazwisko", "kraj"]
 
 class FilmAdmin(admin.ModelAdmin):
-    list_display = ["tytul", "gatunek", "rezyser", "ranking_popularności", "dostepne_kopie"]
+    
+    list_display = ["tytul", "gatunek", "rezyser", "dostepne_kopie"]
     list_filter = ["gatunek", "format_filmu", "miesiac_premiery"]
     search_fields = ["tytul"]
-    list_editable = ["ranking_popularności", "dostepne_kopie"]
+    list_editable = ["dostepne_kopie"]
 
 class OsobaAdmin(admin.ModelAdmin):
     list_display = ["imie" , "nazwisko" , "stanowisko", "plec"]

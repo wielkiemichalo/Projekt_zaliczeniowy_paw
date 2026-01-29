@@ -55,11 +55,7 @@ class Film(models.Model):
     rezyser = models.ForeignKey(Rezyser, null=True, blank=True, on_delete=models.SET_NULL)
     gatunek = models.ForeignKey(Gatunek, null=True, blank=True, on_delete=models.SET_NULL)
     dostepne_kopie = models.PositiveIntegerField(default=1)
-    ranking_popularności = models.PositiveSmallIntegerField(
-        default=0,
-        validators=[MinValueValidator(0), MaxValueValidator(10)],
-        help_text="Ocena popularności (0–10)."
-    )
+
    
     
     def __str__(self):

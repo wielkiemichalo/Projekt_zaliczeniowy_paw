@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Gatunek, Rezyser, Film, Osoba, Stanowisko, 
+from .models import Gatunek, Rezyser, Film, Osoba, Stanowisko 
 
 
 class GatunekSerializer(serializers.ModelSerializer):
@@ -18,6 +18,14 @@ class RezyserSerializer(serializers.ModelSerializer):
         model = Rezyser
         fields = '__all__'
 
+
+    def validate(self, data):
+        imie = data.get('imie')
+        nazwisko = data.get('nazwisko')
+        kraj = data.get('kraj')
+
+
+    
     def validate_imie(self, value):
         if not value[0].isupper():
             raise serializers.ValidationError("Imię musi zaczynać się wielką literą!")
@@ -31,6 +39,11 @@ class RezyserSerializer(serializers.ModelSerializer):
         if not value.isalpha():
             raise serializers.ValidationError("Nazwisko może zawierać tylko litery!")
         return value
+
+        if kraj and (len(kraj) != 2 or not kraj.isupper()):
+            raise serializers.ValidationError({"kraj": "Kod kraju musi mieć 2 wielkie litery (np. PL)."})
+        
+        return data        
 
 
 class FilmSerializer(serializers.ModelSerializer):

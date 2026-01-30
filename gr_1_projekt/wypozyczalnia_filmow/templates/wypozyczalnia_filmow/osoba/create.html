@@ -1,0 +1,17 @@
+<form method="POST">
+    {% csrf_token %}
+    Imię: <input type="text" name="imie"><br>
+    Nazwisko: <input type="text" name="nazwisko"><br>
+    Płeć: 
+    <select name="plec">
+        <option value="1">Mężczyzna</option>
+        <option value="2">Kobieta</option>
+    </select><br>
+    Stanowisko:
+    <select name="stanowisko">
+        {% for s in stanowiska %}
+            <option value="{{ s.id }}">{{ s.nazwa }}</option>
+        {% endfor %}
+    </select><br>
+    <button type="submit">Dodaj</button>
+</form>

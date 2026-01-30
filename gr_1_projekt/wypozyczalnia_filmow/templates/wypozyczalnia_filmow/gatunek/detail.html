@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Szczegóły gatunku: {{ gatunek.nazwa|capfirst }}</title>
+</head>
+<body>
+
+    <h2>Szczegóły gatunku: {{ gatunek.nazwa|capfirst }}</h2>
+
+    <div style="border: 1px solid #ccc; padding: 15px; width: 400px; margin-bottom: 20px;">
+        <p><strong>ID:</strong> {{ gatunek.id }}</p>
+        <p><strong>Nazwa:</strong> {{ gatunek.nazwa|capfirst }}</p>
+        <p><strong>Opis:</strong> {{ gatunek.opis|default:"Brak opisu" }}</p>
+        <p><strong>Typowe motywy:</strong> {{ gatunek.typowe_motywy|default:"Brak danych" }}</p>
+        <p><strong>Kategoria:</strong> 
+            {% if gatunek.czy_fabularny %}
+                Film fabularny
+            {% else %}
+                Nie-fabularny (np. dokument)
+            {% endif %}
+        </p>
+    </div>
+
+    <form method="POST" onsubmit="return confirm('Czy na pewno chcesz usunąć ten gatunek?')">
+        {% csrf_token %}
+        <button type="submit" style="background-color: #d9534f; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
+            Usuń gatunek
+        </button>
+    </form>
+
+    <br>
+    <a href="{% url 'gatunek-list-html' %}">← Wróć do listy</a>
+
+</body>
+</html>

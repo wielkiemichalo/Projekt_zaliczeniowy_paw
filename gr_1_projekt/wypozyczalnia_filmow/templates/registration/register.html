@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>Rejestracja</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <p>
+            <label>Użytkownik:</label><br>
+            {{ form.username }}
+        </p>
+
+        <p>
+            <label>Hasło:</label><br>
+            {{ form.password1 }}
+        </p>
+
+        <p>
+            <label>Powtórz hasło:</label><br>
+            {{ form.password2 }}
+        </p>
+
+        <button type="submit">Zarejestruj się</button>
+    </form>
+
+    <br>
+    <p>Masz już konto? <a href="{% url 'login' %}">Zaloguj się</a></p>
+</body>
+</html>

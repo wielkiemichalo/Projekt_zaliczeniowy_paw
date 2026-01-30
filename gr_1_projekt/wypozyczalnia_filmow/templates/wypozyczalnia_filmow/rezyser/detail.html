@@ -1,0 +1,12 @@
+<h2>Szczegóły reżysera</h2>
+<p>Imię: {{ rezyser.imie }}</p>
+<p>Nazwisko: {{ rezyser.nazwisko }}</p>
+<p>Kraj: {{ rezyser.kraj }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" style="color: red;">Usuń reżysera</button>
+</form>
+
+<br>
+<a href="{% url 'rezyser-list-html' %}">Powrót do listy</a>

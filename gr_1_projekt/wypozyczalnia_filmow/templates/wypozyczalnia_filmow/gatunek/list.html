@@ -1,0 +1,41 @@
+<h2>Lista Gatunków</h2>
+<nav style="background: #f8f9fa; padding: 15px; border-bottom: 1px solid #ddd; margin-bottom: 20px;">
+    {% if user.is_authenticated %}
+        <span>Zalogowany jako: <b>{{ user.username }}</b></span> |
+        <a href="{% url 'film-list-html' %}">Filmy</a> |
+        <a href="{% url 'rezyser-list-html' %}">Reżyserzy</a> |
+        <a href="{% url 'osoba-list-html' %}">Osoby</a> |
+        <a href="{% url 'gatunek-list-html' %}">Gatunki</a> |
+        <a href="{% url 'logout' %}" style="color: red;">Wyloguj się</a>
+    {% else %}
+        <a href="{% url 'login' %}">Zaloguj się</a> | 
+        <a href="{% url 'register' %}">Zarejestruj się</a>
+    {% endif %}
+</nav>
+<a href="{% url 'gatunek-create-html' %}"><b>+ Dodaj nowy gatunek</b></a>
+<br><br>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Nazwa Gatunku</th>
+            <th>Typ</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for g in gatunki %}
+        <tr>
+            <td>{{ g.nazwa|capfirst }}</td>
+            <td>{% if g.czy_fabularny %}Fabularny{% else %}Dokumentalny/Inny{% endif %}</td>
+            <td>
+                <a href="{% url 'gatunek-detail-html' g.id %}">Szczegóły</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Brak gatunków w bazie.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

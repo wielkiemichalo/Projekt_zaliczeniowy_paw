@@ -1,0 +1,12 @@
+<h2>Szczegóły osoby</h2>
+<p><strong>Imię i nazwisko:</strong> {{ osoba.imie }} {{ osoba.nazwisko }}</p>
+<p><strong>Płeć:</strong> {{ osoba.get_plec_display }}</p>
+<p><strong>Stanowisko:</strong> {{ osoba.stanowisko.nazwa }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" onclick="return confirm('Na pewno usunąć?')">Usuń tę osobę</button>
+</form>
+
+<hr>
+<a href="{% url 'osoba-list-html' %}">Wróć do listy</a>

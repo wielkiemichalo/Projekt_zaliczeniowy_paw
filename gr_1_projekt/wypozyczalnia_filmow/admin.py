@@ -11,7 +11,7 @@ class RezyserAdmin(admin.ModelAdmin):
 class FilmAdmin(admin.ModelAdmin):
     
     list_display = ["tytul", "gatunek", "rezyser", "dostepne_kopie"]
-    list_filter = ["gatunek", "format_filmu", "miesiac_premiery"]
+    list_filter = ["gatunek", "rezyser"]
     search_fields = ["tytul"]
     list_editable = ["dostepne_kopie"]
 

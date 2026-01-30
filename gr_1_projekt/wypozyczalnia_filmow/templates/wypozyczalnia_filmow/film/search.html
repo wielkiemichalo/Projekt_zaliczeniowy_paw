@@ -1,0 +1,42 @@
+{% extends "welcome.html" %}
+
+{% block content %}
+<h2>🔍 Przeszukaj listę filmów</h2>
+
+<form method="GET" action="{% url 'film-search-html' %}" style="margin-bottom: 20px;">
+    <input type="text" name="q" placeholder="Wpisz fragment tytułu..." value="{{ query|default:'' }}" 
+           style="padding: 8px; width: 300px; border: 1px solid #ccc; border-radius: 4px;">
+    <button type="submit" style="padding: 8px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+        Szukaj
+    </button>
+</form>
+
+<table border="1" cellpadding="10" style="width: 100%; border-collapse: collapse;">
+    <thead style="background-color: #f8f9fa;">
+        <tr>
+            <th>Tytuł filmu</th>
+            <th>Gatunek</th>
+            <th>Akcja</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for film in results %}
+        <tr>
+            <td>{{ film.tytul }}</td>
+            <td>{{ film.gatunek.nazwa }}</td>
+            <td>
+                <a href="{% url 'film-detail-html' film.id %}" style="color: #007bff;">Zobacz szczegóły</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3" style="text-align: center;">Nie znaleziono żadnych filmów.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p style="margin-top: 20px;">
+    <a href="{% url 'film-list-html' %}">⬅ Powrót do pełnej administracji filmów</a>
+</p>
+{% endblock %}

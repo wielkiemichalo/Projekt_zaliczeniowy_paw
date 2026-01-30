@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Losowanie Filmu</title>
+    <style>
+        body { font-family: sans-serif; background: #1a1a1a; color: #eee; text-align: center; padding: 50px; }
+        .card { background: #2d2d2d; border: 3px solid #f39c12; border-radius: 15px; padding: 40px; display: inline-block; min-width: 300px; }
+        .btn-again { background: #f39c12; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; margin-top: 20px; }
+        .back-link { display: block; margin-top: 30px; color: #999; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <h1>✨ Rekomendacja dla Ciebie ✨</h1>
+
+    <div class="card">
+        {% if film %}
+            <h2 style="color: #f39c12;">{{ film.tytul }}</h2>
+            <p>Gatunek: <b>{{ film.gatunek.nazwa }}</b></p>
+            <p>Dostępne kopie: {{ film.dostepne_kopie }}</p>
+            <br>
+            <a href="{% url 'film-detail-html' film.id %}" style="color: #3498db;">➡ Szczegóły filmu</a>
+        {% else %}
+            <p>Brak filmów w bazie. Dodaj coś w panelu admina!</p>
+        {% endif %}
+    </div>
+
+    <div>
+        <a href="{% url 'film-random-page' %}" class="btn-again">WYLOSUJ INNY 🎲</a>
+    </div>
+
+    <a href="{% url 'welcome' %}" class="back-link">⬅ Wróć do strony głównej</a>
+
+</body>
+</html>

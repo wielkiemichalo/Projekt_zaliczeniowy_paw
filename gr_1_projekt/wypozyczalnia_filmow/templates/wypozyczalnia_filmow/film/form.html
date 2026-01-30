@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <style>
+        body { font-family: sans-serif; padding: 30px; }
+        .container { max-width: 500px; margin: auto; border: 1px solid #ccc; padding: 20px; border-radius: 10px; }
+        form p { margin-bottom: 15px; }
+        input, select { width: 100%; padding: 8px; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>{{ title }}</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Zapisz</button>
+        </form>
+        <br>
+        <a href="{% url 'film-list-html' %}">Anuluj</a>
+    </div>
+</body>
+</html>

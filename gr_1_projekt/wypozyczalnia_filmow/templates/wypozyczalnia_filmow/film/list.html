@@ -1,0 +1,14 @@
+<h2>Lista Filmów</h2>
+<hr>
+<ul>
+    {% for f in filmy %}
+        <li>
+              <strong>{{ f.tytul }}</strong> 
+              {% if f.miesiac_premiery %}({{ f.get_miesiac_premiery_display }}){% endif %}   
+              <a href="{% url 'film-detail-html' f.id %}">[szczegóły]</a>
+       </li>
+    {% empty %}
+        <li>Brak filmów w bazie danych.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'welcome' %}">Powrót do startu</a>

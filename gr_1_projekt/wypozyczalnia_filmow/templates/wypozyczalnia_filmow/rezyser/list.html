@@ -1,0 +1,10 @@
+<h2>Lista Reżyserów</h2>
+<a href="{% url 'rezyser-create-html' %}">Dodaj nowego</a>
+<hr>
+<ul>
+    {% for r in rezyserzy %}
+    <li>
+        <a href="{% url 'rezyser-detail-html' r.id %}">{{ r.imie }} {{ r.nazwisko }}</a>
+    </li>
+    {% endfor %}
+</ul>

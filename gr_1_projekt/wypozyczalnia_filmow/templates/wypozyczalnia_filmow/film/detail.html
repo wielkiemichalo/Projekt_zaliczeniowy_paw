@@ -1,0 +1,13 @@
+<h2>Szczegóły filmu: {{ film.tytul }}</h2>
+<p><strong>Miesiąc premiery:</strong> {{ film.get_miesiac_premiery_display }}</p>
+<p><strong>Gatunek:</strong> {{ film.gatunek.nazwa }}</p>
+<p><strong>Reżyser:</strong> {{ film.rezyser.imie }} {{ film.rezyser.nazwisko }}</p>
+<p><strong>Dostępne kopie:</strong> {{ film.dostepne_kopie }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Usuń film</button>
+</form>
+
+<hr>
+<a href="{% url 'film-list-html' %}">Wróć do listy filmów</a>

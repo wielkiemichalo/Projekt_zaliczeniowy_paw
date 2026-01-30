@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>Logowanie</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label>Użytkownik:</label><br>
+            {{ form.username }}
+        </p>
+        <p>
+            <label>Hasło:</label><br>
+            {{ form.password }}
+        </p>
+        <button type="submit">Zaloguj się</button>
+    </form>
+
+    {% if form.errors %}
+        <p style="color: red;">Błędny login lub hasło.</p>
+    {% endif %}
+
+    <br>
+    <p>Nie masz konta? <a href="{% url 'register' %}">Zarejestruj się</a></p>
+</body>
+</html>

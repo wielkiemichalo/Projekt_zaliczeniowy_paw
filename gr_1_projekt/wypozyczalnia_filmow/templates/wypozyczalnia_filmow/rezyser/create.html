@@ -1,0 +1,9 @@
+<h2>Dodaj reżysera</h2>
+<form method="post">
+    {% csrf_token %}
+    <p>Imię:<br><input type="text" name="imie" required></p>
+    <p>Nazwisko:<br><input type="text" name="nazwisko" required></p>
+    <p>Kraj:<br><input type="text" name="kraj" maxlength="2" required></p>
+    <button type="submit">Dodaj</button>
+</form>
+<a href="{% url 'rezyser-list-html' %}">Anuluj</a>

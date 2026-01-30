@@ -1,0 +1,7 @@
+<h2>Nowe Stanowisko</h2>
+<form method="POST">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit">Zapisz stanowisko</button>
+</form>
+<br>
+<a href="{% url 'stanowisko-list-html' %}">Anuluj</a>

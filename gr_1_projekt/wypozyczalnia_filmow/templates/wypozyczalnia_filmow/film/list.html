@@ -1,14 +1,60 @@
-<h2>Lista Filmów</h2>
-<hr>
-<ul>
-    {% for f in filmy %}
-        <li>
-              <strong>{{ f.tytul }}</strong> 
-              {% if f.miesiac_premiery %}({{ f.get_miesiac_premiery_display }}){% endif %}   
-              <a href="{% url 'film-detail-html' f.id %}">[szczegóły]</a>
-       </li>
-    {% empty %}
-        <li>Brak filmów w bazie danych.</li>
-    {% endfor %}
-</ul>
-<a href="{% url 'welcome' %}">Powrót do startu</a>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Filmów</title>
+</head>
+<body>
+    <p>Zalogowany jako: <strong>{{ user.username }}</strong> | 
+       <a href="{% url 'film-list-html' %}">Filmy</a> | 
+       <a href="{% url 'rezyser-list-html' %}">Reżyserzy</a> | 
+       <a href="{% url 'gatunek-list-html' %}">Gatunki</a> 
+       {% if user.is_superuser %}
+            | <a href="{% url 'osoba-list-html' %}" style="color: red;">Osoby (Admin)</a> | 
+            <a href="{% url 'stanowisko-list-html' %}" style="color: red;">Stanowiska (Admin)</a>
+       {% endif %}
+       | <a href="{% url 'logout' %}" style="color: red; margin-left: 10px;">Wyloguj się</a>
+    </p>
+
+    <h2>Lista Filmów</h2>
+    
+    <nav>
+        <a href="{% url 'film-create-html' %}">+ Dodaj nowy film</a> | 
+        <a href="{% url 'film-search-html' %}">Szukaj filmu</a> | 
+        <a href="{% url 'film-random-page' %}">Losuj film</a>
+    </nav>
+
+    <hr>
+
+    <table border="1" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th style="padding: 8px;">Tytuł</th>
+                <th style="padding: 8px;">Reżyser</th>
+                <th style="padding: 8px;">Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for f in filmy %}
+            <tr>
+                <td style="padding: 8px;">{{ f.tytul }}</td>
+                <td style="padding: 8px;">{{ f.rezyser.imie }} {{ f.rezyser.nazwisko }}</td>
+                <td style="padding: 8px; text-align: center;">
+                    <a href="{% url 'film-detail-html' f.id %}">Szczegóły</a>
+                    {% if user.is_superuser %}
+                        | <a href="{% url 'film-edit-html' f.id %}" style="color: orange;">Edytuj</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" style="padding: 8px; text-align: center;">Brak filmów w bazie danych.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+    <a href="{% url 'welcome' %}">« Powrót do menu głównego</a>
+</body>
+</html>

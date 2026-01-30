@@ -119,4 +119,5 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-LOGIN_REDIRECT_URL = '/wypozyczalnia_filmow/html/welcome/'
+LOGOUT_REDIRECT_URL = '/wypozyczalnia_filmow/welcome/'
+LOGIN_REDIRECT_URL = '/wypozyczalnia_filmow/welcome/'

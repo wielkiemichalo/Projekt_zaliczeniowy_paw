@@ -1,42 +1,29 @@
-{% extends "welcome.html" %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Wyszukiwarka Filmów</title>
+</head>
+<body>
+    <p><a href="{% url 'film-list-html' %}">« Powrót do listy</a></p>
+    <h2>Wyniki wyszukiwania dla: "{{ query }}"</h2>
 
-{% block content %}
-<h2>🔍 Przeszukaj listę filmów</h2>
+    <form method="GET" action="{% url 'film-search-html' %}">
+        <input type="text" name="q" value="{{ query }}" placeholder="Wpisz tytuł...">
+        <button type="submit">Szukaj</button>
+    </form>
 
-<form method="GET" action="{% url 'film-search-html' %}" style="margin-bottom: 20px;">
-    <input type="text" name="q" placeholder="Wpisz fragment tytułu..." value="{{ query|default:'' }}" 
-           style="padding: 8px; width: 300px; border: 1px solid #ccc; border-radius: 4px;">
-    <button type="submit" style="padding: 8px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
-        Szukaj
-    </button>
-</form>
+    <hr>
 
-<table border="1" cellpadding="10" style="width: 100%; border-collapse: collapse;">
-    <thead style="background-color: #f8f9fa;">
-        <tr>
-            <th>Tytuł filmu</th>
-            <th>Gatunek</th>
-            <th>Akcja</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for film in results %}
-        <tr>
-            <td>{{ film.tytul }}</td>
-            <td>{{ film.gatunek.nazwa }}</td>
-            <td>
-                <a href="{% url 'film-detail-html' film.id %}" style="color: #007bff;">Zobacz szczegóły</a>
-            </td>
-        </tr>
+    <ul>
+        {% for f in filmy %}
+            <li>
+                <a href="{% url 'film-detail-html' f.id %}">{{ f.tytul }}</a> 
+                ({{ f.rezyser.imie }} {{ f.rezyser.nazwisko }})
+            </li>
         {% empty %}
-        <tr>
-            <td colspan="3" style="text-align: center;">Nie znaleziono żadnych filmów.</td>
-        </tr>
+            <li>Nie znaleziono filmów pasujących do zapytania.</li>
         {% endfor %}
-    </tbody>
-</table>
-
-<p style="margin-top: 20px;">
-    <a href="{% url 'film-list-html' %}">⬅ Powrót do pełnej administracji filmów</a>
-</p>
-{% endblock %}
+    </ul>
+</body>
+</html>

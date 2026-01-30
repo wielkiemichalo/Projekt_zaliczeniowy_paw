@@ -1,40 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
+    <meta charset="UTF-8">
     <title>Lista Osób</title>
 </head>
-
 <body>
-    <h1>System Wypożyczalni - Pracownicy</h1>
-    <nav style="background: #f8f9fa; padding: 15px; border-bottom: 1px solid #ddd; margin-bottom: 20px;">
-    {% if user.is_authenticated %}
-        <span>Zalogowany jako: <b>{{ user.username }}</b></span> |
-        <a href="{% url 'film-list-html' %}">Filmy</a> |
-        <a href="{% url 'rezyser-list-html' %}">Reżyserzy</a> |
-        <a href="{% url 'osoba-list-html' %}">Osoby</a> |
-        <a href="{% url 'gatunek-list-html' %}">Gatunki</a> |
-        <form action="{% url 'logout' %}" method="post" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit" style="background:none; border:none; color:red; cursor:pointer; text-decoration:underline; padding:0;">Wyloguj się</button>
-        </form>
-    {% else %}
-        <a href="{% url 'login' %}">Zaloguj się</a> | 
-        <a href="{% url 'register' %}">Zarejestruj się</a>
-    {% endif %}
-</nav>
-    <a href="{% url 'osoba-create' %}">Dodaj nową osobę</a>
+    <p>Zalogowany jako: <strong>{{ user.username }}</strong> (Administrator)</p>
+    
+    <h2>Lista Osób</h2>
+    <a href="{% url 'osoba-create' %}">+ Dodaj nową osobę</a>
     <hr>
-    <ul>
+    <table border="1">
+        <tr>
+            <th>Imię i Nazwisko</th>
+            <th>Stanowisko</th>
+            <th>Akcje</th>
+        </tr>
         {% for o in osoby %}
-            <li>
-                <strong>{{ o.imie }} {{ o.nazwisko }}</strong>
-                <a href="{% url 'osoba-detail-html' o.id %}">[Szczegóły]</a>
-            </li>
-        {% empty %}
-            <li>Brak osób w systemie.</li>
+        <tr>
+            <td>{{ o.imie }} {{ o.nazwisko }}</td>
+            <td>{{ o.stanowisko.nazwa }}</td>
+            <td><a href="{% url 'osoba-detail-html' o.id %}">Pokaż</a></td>
+        </tr>
         {% endfor %}
-    </ul>
-    <br>
-    <a href="{% url 'welcome' %}">Wróć do startu</a>
+    </table>
+    <hr>
+    <a href="{% url 'welcome' %}">« Powrót do menu głównego</a>
 </body>
 </html>

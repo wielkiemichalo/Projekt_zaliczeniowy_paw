@@ -1,35 +1,31 @@
-<nav style="background: #f4f4f4; padding: 10px; border-bottom: 1px solid #ccc;">
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Wypożyczalnia Filmów - Menu</title>
+</head>
+<body>
     {% if user.is_authenticated %}
-
-        Witaj, <b>{{ user.username }}</b>! | 
-        <a href="{% url 'film-list-html' %}">Filmy</a> |
-        <a href="{% url 'rezyser-list-html' %}">Reżyserzy</a> |
-        <a href="{% url 'gatunek-list-html' %}">Gatunki</a> |
-        <form action="{% url 'logout' %}" method="post" style="display:inline;">
-            {% csrf_token %}<button type="submit">Wyloguj</button>
+        <h2>Witaj, {{ user.username }}!</h2>
+        <nav>
+            <a href="{% url 'film-list-html' %}">Filmy</a> | 
+            <a href="{% url 'rezyser-list-html' %}">Reżyserzy</a> | 
+            <a href="{% url 'gatunek-list-html' %}">Gatunki</a>
+            {% if user.is_superuser %}
+                | <a href="{% url 'osoba-list-html' %}" style="color: red;">Osoby (Admin)</a>
+                | <a href="{% url 'stanowisko-list-html' %}" style="color: red;">Stanowiska (Admin)</a>
+            {% endif %}
+        </nav>
+        <hr>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Wyloguj się</button>
         </form>
     {% else %}
+        <h2>Witaj w Wypożyczalni!</h2>
+        <p>Musisz się zalogować, aby przeglądać ofertę.</p>
         <a href="{% url 'login' %}">Zaloguj się</a> | 
         <a href="{% url 'register' %}">Zarejestruj się</a>
-
-        <div style="text-align: center; margin-top: 50px; padding: 20px; border: 2px dashed #28a745;">
-    <h2>🎲 Nie wiesz co obejrzeć?</h2>
-    <p>Nasz system wybierze coś specjalnie dla Ciebie!</p>
-    
-    {% if user.is_authenticated %}
-        <a href="{% url 'film-random' %}" 
-           style="background-color: #28a745; color: white; padding: 15px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.2em; display: inline-block;">
-           LOSUJ FILM
-        </a>
-    {% else %}
-        <p style="color: red; font-weight: bold;">
-            Funkcja losowania dostępna tylko dla zalogowanych użytkowników!
-        </p>
-        <a href="{% url 'login' %}">Zaloguj się teraz</a>
     {% endif %}
-</div>
-    {% endif %}
-</nav>
-<div class="content">
-    {% block content %}{% endblock %}
-</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Stanowisk</title>
+</head>
+<body>
+    <p>Zalogowany jako: <strong>{{ user.username }}</strong> (Administrator)</p>
+    <nav>
+        <a href="{% url 'welcome' %}">Menu Główne</a> | 
+        <a href="{% url 'osoba-list-html' %}">Osoby</a>
+    </nav>
+    
+    <h2>Zarządzanie Stanowiskami</h2>
+    <a href="{% url 'stanowisko-create-html' %}">+ Dodaj nowe stanowisko</a>
+    <hr>
+    <ul>
+        {% for s in stanowiska %}
+            <li>
+                <strong>{{ s.nazwa }}</strong> 
+                - <a href="{% url 'stanowisko-detail-html' s.id %}">[szczegóły]</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <a href="{% url 'welcome' %}">« Powrót do menu głównego</a>
+</body>
+</html>
